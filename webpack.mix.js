@@ -11,4 +11,4 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.sass('resources/assets/sass/voyager.scss', 'public/css');
+mix.sass('resources/assets/sass/voyager.scss', '/public/css');

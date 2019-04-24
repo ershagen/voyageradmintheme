@@ -7,131 +7,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
     <meta name="description" content="admin login">
     <title>Admin - {{ Voyager::setting("admin.title") }}</title>
-    <link rel="stylesheet" href="{{ voyager_asset('css/app.css') }}">
-    @if (__('voyager::generic.is_rtl') == 'true')
+
+    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/voyager.css') }}" rel="stylesheet">
+
+@if (__('voyager::generic.is_rtl') == 'true')
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-rtl/3.4.0/css/bootstrap-rtl.css">
         <link rel="stylesheet" href="{{ voyager_asset('css/rtl.css') }}">
     @endif
-    <style>
-
-
-        .login .box {
-            width: 320px;
-            padding: 30px;
-            margin: 0 auto;
-        }
-
-        .login #wrapper {
-            border-radius: 2px;
-            border-color: #587175;
-        }
-
-        .login {
-            background: url(../img/blurry.jpg) top no-repeat fixed;
-            background-size: cover;
-            padding-top: 48px;
-            padding-left: 0;
-        }
-
-        body .logo {
-            max-width: unset;
-            display: table;
-            text-align: center;
-        }
-
-        body .logo .title {
-            font-weight: bold;
-            margin-top: 25px;
-        }
-
-        body {
-            background-image: url('{{ Voyager::image( Voyager::setting("admin.bg_image"), voyager_asset("images/bg.jpg") ) }}');
-            background-color: {{ Voyager::setting("admin.bg_color", "#FFFFFF" ) }};
-        }
-
-        body.login .login-sidebar {
-            border-top: 5px solid{{ config('voyager.primary_color','#22A7F0') }};
-        }
-
-        @media (max-width: 767px) {
-            body.login .login-sidebar {
-                border-top: 0px !important;
-                border-left: 5px solid{{ config('voyager.primary_color','#22A7F0') }};
-            }
-        }
-
-        body.login .form-group-default.focused {
-            border-color: {{ config('voyager.primary_color','#22A7F0') }};
-        }
-
-        .login-button, .bar:before, .bar:after {
-            background: {{ config('voyager.primary_color','#22A7F0') }};
-        }
-
-        .remember-me-text {
-            padding: 0 5px;
-        }
-    </style>
-
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
 </head>
-<body class="login">
 
+<body class="my-login-page">
 
-<div class="logo">
-    <div class="title">{{Voyager::setting('admin.title', 'VOYAGER')}}</div>
-</div>
+<section class="h-100">
+    <div class="container h-100">
+        <div class="row justify-content-md-center h-100">
+            <div class="card-wrapper">
 
-@if(!$errors->isEmpty())
-    <div class="alert alert-red">
-        <ul class="list-unstyled">
-            @foreach($errors->all() as $err)
-                <li>{{ $err }}</li>
-            @endforeach
-        </ul>
+                @if(Voyager::setting('site.logo'))
+                    <img src="/storage/{{ Voyager::setting('site.logo') }}" width="160px" style="display: table;margin: auto; margin-top: 100px; margin-bottom: 20px;" />
+                @else
+                    <img src="https://laravelvoyager.com/assets/images/logo_dark.png" width="160px" style="display: table;margin: auto; margin-top: 100px; margin-bottom: 20px;" />
+                @endif
+
+                <div class="card fat">
+                    <div class="card-body">
+
+                        @if(!$errors->isEmpty())
+                            <div class="alert alert-red">
+                                <ul class="list-unstyled">
+                                    @foreach($errors->all() as $err)
+                                        <li>{{ $err }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                        <form action="{{ route('voyager.login') }}" method="POST">
+                            {{ csrf_field() }}
+
+                            <input type="hidden" name="referer" value="">
+
+                            <div class="form-group">
+                                <label for="email"> {{ __('voyager::generic.email') }}</label>
+                                <input id="email" type="email" class="form-control" name="email" value="" required autofocus>
+                                <div class="invalid-feedback">
+                                    Email is invalid
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="password">{{ __('voyager::generic.password') }}
+                                </label>
+                                <input id="password" type="password" class="form-control" name="password" required data-eye>
+                                <div class="invalid-feedback">
+                                    Password is required
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="custom-checkbox custom-control">
+                                    <input type="checkbox" name="remember" id="remember" class="custom-control-input">
+                                    <label for="remember" class="custom-control-label">{{ __('voyager::generic.remember_me') }}</label>
+                                </div>
+                            </div>
+
+                            <div class="form-group m-0">
+                                <button type="submit" class="btn btn-primary btn-block">
+                                    {{ __('voyager::generic.login') }}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="footer">
+                    Copyright &copy; 2019 &mdash; {{Voyager::setting('admin.title', 'VOYAGER')}}
+                </div>
+            </div>
+        </div>
     </div>
-@endif
+</section>
 
-<div class="box card col-centered">
-    <div id="wrapper">
-
-
-        <form action="{{ route('voyager.login') }}" method="POST">
-            {{ csrf_field() }}
-
-            <input type="hidden" name="referer" value="">
-
-            <div class="mb-4">
-                <label>
-                    {{ __('voyager::generic.email') }}
-                </label>
-                <input type="text" name="email" id="email" class="form-control" value="{{ old('email') }}"
-                       placeholder="{{ __('voyager::generic.email') }}" autofocus="">
-            </div>
-
-            <div class="mb-4">
-                <label>{{ __('voyager::generic.password') }}</label>
-                <input type="password" class="form-control" name="password"
-                       placeholder="{{ __('voyager::generic.password') }}" id="password">
-            </div>
-
-            <div class="mb-4">
-                <input type="checkbox" value="1" class="form-control" name="remember" id="checkbox-0">
-                <label for="checkbox-0" class="normal">{{ __('voyager::generic.remember_me') }}</label>
-            </div>
-
-            <div>
-                <button type="submit" class="btn btn-primary login-button">
-                    <span class="signingin hidden"><span
-                                class="voyager-refresh"></span> {{ __('voyager::login.loggingin') }}...</span>
-                    <span class="signin">{{ __('voyager::generic.login') }}</span>
-                </button>
-            </div>
-        </form>
-
-
-    </div>
-</div>
 
 
 <script>
