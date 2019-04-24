@@ -1,0 +1,24 @@
+{
+    "name": "ershagen/voyageradmintheme",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Hampus Ershagen",
+            "email": "ershagen@live.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Ershagen\\Voyageradmintheme\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Ershagen\\Voyageradmintheme\\AdminServiceProvider"
+            ]
+        }
+    }
+}
