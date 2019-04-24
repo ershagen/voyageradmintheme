@@ -34,7 +34,7 @@
                     <div class="card-body">
 
                         @if(!$errors->isEmpty())
-                            <div class="alert alert-red">
+                            <div class="alert alert-danger">
                                 <ul class="list-unstyled">
                                     @foreach($errors->all() as $err)
                                         <li>{{ $err }}</li>
