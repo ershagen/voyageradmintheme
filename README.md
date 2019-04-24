@@ -1,4 +1,4 @@
-# Voyager Admin Theme
+# Laravel Voyager Admin Theme
 
 ![Voyager Frontend Screenshot](/image.png)
 
