@@ -1,6 +1,6 @@
 # Voyager Admin Theme
 
-![Voyager Frontend Screenshot](/readme-intro.jpg)
+![Voyager Frontend Screenshot](/image.png)
 
 __The Missing Admin Theme for The Missing Laravel Admin.__
 
