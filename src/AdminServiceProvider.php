@@ -14,7 +14,6 @@ class AdminServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        include __DIR__.'/routes/web.php';
     }
 
     /**
